@@ -74,9 +74,9 @@ Ué mas o meu código estava funcionando, o que aconteceu? :( Os testes não pas
 Ah entendi, então vamos apagar todos os dados sempre antes de rodar os testes, funcionaria, mas será que é a melhor solução, bom acho que não.
 
 
-Outra solução seria criarmos um objeto “fake” igual ao nosso PagamentoDAO, podemos criar um PagamentoDAOFake
+Outra solução seria criarmos um objeto “fake” igual ao nosso PagamentoDAO, vamos criar um PagamentoDAOFake
 
-Então, agora temos duas classes DAO, a do mundo real e uma fake que faz comunicação com banco de dados de validação apenas para realizarmos os testes.
+Então, agora temos duas classes DAO, a do mundo real e uma fake que faz comunicação com banco de dados de validação apenas para realizarmos os nossos testes.
 
 ```
 public class PagamentoDaoImpl implements PagamentoDAO {
