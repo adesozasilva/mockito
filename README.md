@@ -146,7 +146,7 @@ public class PagamentoTest {
 
 ```
 
-Então como podemos resolver isso? Aí que surge o Mockito um framework para simular os nossos objetos reais.
+Então como podemos resolver isso? Aí que surge o Mockito, um framework para simular os nossos objetos reais.
 
 
 Com o Mockito, podemos manter uma única classe de PagamentoDAO e simular os seus comportamentos, veja como podemos fazer isso no exemplo abaixo:
