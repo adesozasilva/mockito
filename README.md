@@ -189,7 +189,7 @@ public void deveAdicionarPagamento() {
 
 ```
 
-Com o método `verify` conseguimos saber se realmente o pagamentoService chamou o método adiciona do PagamentoDAO e assim verificamos se realmente o nosso registro foi adicionado ao banco de dados.
+Com o método `verify` conseguimos saber se realmente o pagamentoService chamou o método adiciona do PagamentoDAO e assim verificamos se realmente o nosso registro foi adicionado ao banco de dados, caso o método não fosse chamado o teste não passaria.
 
 E o Mockito tem muitos outros recursos poderosos e interessantes para nos ajudar na criação dos cenários de testes.
 
