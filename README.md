@@ -113,7 +113,7 @@ public class PagamentoDaoImplFake implements PagamentoDAO {
 
 ```
 
-E no teste alteramos para a classe de serviço receber a nossa classe fake. Mas será que isso é o melhor dos mundos? Perceba toda vez que formos realizar uma mudança na classe do mundo real, precisaremos replicar para a nossa classe fake. E ainda teremos que ficar apagando os dados para realizar os testes. 
+E no teste alteramos para a classe de serviço receber a nossa classe fake. Mas será que isso é o melhor dos mundos? Perceba toda vez que formos realizar uma mudança na classe do mundo real, precisaremos replicar para a nossa classe fake. E ainda teremos que ficar apagando os dados para realizar os testes. :(
 
 ```
 public class PagamentoTest {
