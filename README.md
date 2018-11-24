@@ -179,7 +179,7 @@ public void deveAdicionarPagamento() {
    PagamentoDAO pagamentoDAO = Mockito.mock(PagamentoDaoImpl.class);
    PagamentoService pagamentoService = new PagamentoService(pagamentoDAO);
    
-Pagamento pagamento = new Pagamento("Conta do Bar", 350, Calendar.getInstance());
+   Pagamento pagamento = new Pagamento("Conta do Bar", 350, Calendar.getInstance());
    
    pagamentoService.adicionaPagamentos(pagamento);
 		
