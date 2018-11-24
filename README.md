@@ -65,11 +65,11 @@ Agora podemos rodar nosso teste e verificar se a nossa aplicação está funcion
 ![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_ok.PNG)
 
 
-E podemos constatar que o nosso código foi bem sucedido, mas e se rodarmos novamente, o que será que acontece?
+Sucesso! :) (podemos ir beber). Mas e se rodarmos novamente, o que será que acontece?
 
 ![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_com_falha.PNG) 
 
-Ué mas o meu código estava funcionando , o que aconteceu? Os testes não passam mais porque estamos usando um objeto do mundo real, o PagamentoDAO que faz a comunicação com um banco de dados, seja no ambiente de desenvolvimento, homologação ou produção. Então toda vez que rodamos os testes os registros são inseridos no banco de dados.
+Ué mas o meu código estava funcionando, o que aconteceu? :( Os testes não passam mais porque estamos usando um objeto do mundo real, o PagamentoDAO que faz a comunicação com um banco de dados, seja no ambiente de desenvolvimento, homologação ou produção. Então toda vez que rodamos os testes os registros são inseridos no banco de dados.
 
 Ah entendi, então vamos apagar todos os dados sempre antes de rodar os testes, funcionaria, mas será que é a melhor solução, bom acho que não.
 
