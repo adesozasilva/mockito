@@ -59,7 +59,6 @@ public class PagamentoTest {
 
 ```
 
-
 Agora podemos rodar nosso teste e verificar se a nossa aplicação está funcionando perfeitamente
 
 ![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_ok.PNG)
@@ -148,7 +147,6 @@ public class PagamentoTest {
 
 Então como podemos resolver isso? Aí que surge o Mockito, um framework para simular os nossos objetos reais.
 
-
 Com o Mockito, podemos manter uma única classe de PagamentoDAO e simular os seus comportamentos, veja como podemos fazer isso no exemplo abaixo:
 
 ```
@@ -169,8 +167,9 @@ public void deverRetornarTodosOsPagamentos() {
 
 ```
 
-Notem que estamos criando um pagamentoDAO a partir do método mock e com os métodos when e thenReturn estamos simulando o comportamento “retornaTodosOsPagamentos” e agora ele está retornando a lista que montamos.
-Bacana não né? 
+Notem que estamos criando um pagamentoDAO a partir do método `mock` e com os métodos `when` e `thenReturn` estamos simulando o comportamento “retornaTodosOsPagamentos” e agora ele está retornando a lista que montamos.
+
+Bacana não né? 
 
 E não para por aí, com o Mockito ainda conseguimos fazer outras verificações, como no caso abaixo:
 
@@ -190,8 +189,8 @@ Pagamento pagamento = new Pagamento("Conta do Bar", 350, Calendar.getInstance())
 
 ```
 
-Com o método verify conseguimos saber se realmente o pagamentoService chamou o método de adiciona do PagamentoDAO e assim verificarmos se realmente o nosso dado foi adicionado ao banco de dados.
+Com o método `verify` conseguimos saber se realmente o pagamentoService chamou o método adiciona do PagamentoDAO e assim verificamos se realmente o nosso registro foi adicionado ao banco de dados.
 
-E o Mockito tem muitos outros recursos poderosos e interessantes para nos ajudar na criação do cenário dos nossos testes.
+E o Mockito tem muitos outros recursos poderosos e interessantes para nos ajudar na criação dos cenários de testes.
 
 Ficou curioso? Veja mais em https://site.mockito.org/
