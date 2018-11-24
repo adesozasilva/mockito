@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import br.com.everis.infra.dao.PagamentoDAO;
 import br.com.everis.infra.dao.PagamentoDaoImpl;
@@ -27,16 +26,12 @@ public class PagamentoComMockTest {
 	public void montaCenario() {
 		pagamentoDAO = mock(PagamentoDaoImpl.class);
 		pagamentoService = new PagamentoService(pagamentoDAO);
-		
 		pagamentos = Arrays.asList(new Pagamento("Conta de Luz", 300, Calendar.getInstance()),
 				new Pagamento("Conta de Luz", 300, Calendar.getInstance()));
 	}
 
 	@Test
 	public void deverRetornarTodosOsPagamentos() {
-		PagamentoDAO pagamentoDAO = Mockito.mock(PagamentoDaoImpl.class);
-		PagamentoService pagamentoService = new PagamentoService(pagamentoDAO);
-		
 		when(pagamentoDAO.retornaTodosOsPagamentos()).thenReturn(pagamentos);
 		assertEquals(2, pagamentoService.retornaTodosOsPagamentos().size());
 	}
