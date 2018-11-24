@@ -1,4 +1,4 @@
-# mockito
+# Mockito - Para que serve? É de comer?
 
 Imagine o seguinte cenário, temos um serviço que precisa ser testado, iremos testar os métodos que retornam todos os pagamentos e outro que adiciona um pagamento.
 
