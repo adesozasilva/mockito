@@ -169,7 +169,7 @@ public void deverRetornarTodosOsPagamentos() {
 
 Notem que estamos criando um pagamentoDAO a partir do método `mock` e com os métodos `when` e `thenReturn` estamos simulando o comportamento “retornaTodosOsPagamentos” e agora ele está retornando a lista que montamos.
 
-Bacana não né?
+Bacana não é?
 
 E não para por aí, com o Mockito ainda conseguimos fazer outras verificações, como no caso abaixo:
 
