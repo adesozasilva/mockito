@@ -64,7 +64,7 @@ Agora podemos rodar nosso teste e verificar se a nossa aplicação está funcion
 ![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_ok.PNG)
 
 
-Sucesso! :) (podemos ir beber). Mas e se rodarmos novamente, o que será que acontece?
+Sucesso!:) Mas e se rodarmos novamente, o que será que acontece?
 
 ![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_com_falha.PNG) 
 
