@@ -98,7 +98,7 @@ public class FilmeDAOMockImpl implements FilmeDAO {
 }
 ```
 
-No teste alteramos para a classe de serviço receber a nossa implementação mock. Então, será que isso é uma boa abordagem? Perceba toda a vez que formos realizar uma mudança na classe do mundo real, precisaremos replicar para a nossa implementação. Ainda teremos que apagar os dados para realizar os testes. :(
+No teste alteramos a classe de serviço para receber a nossa implementação mock e então poderemos executar os nossos testes, mas será que isso é uma boa abordagem? Perceba toda a vez que formos realizar uma mudança na classe do mundo real, precisaremos replicar para a nossa implementação. Ainda teremos que apagar os dados para realizar os testes. :(
 
 ```
 public class FilmesComClasseDeMockTest {
