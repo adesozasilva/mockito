@@ -1,196 +1,206 @@
 # Mockito - Para que serve? 
 
-Imagine o seguinte cenário, temos um serviço que precisa ser testado, iremos testar os métodos que retornam todos os pagamentos e outro que adiciona um pagamento.
+Imagine o seguinte cenário, temos um serviço que precisa ser testado, iremos testar os métodos que retornam todos os filmes e outro que adiciona um filme.
 
 ```
-public class PagamentoService {
+public class FilmeService {
 	
-	private PagamentoDAO pagamentoDAO;
+	private FilmeDAO filmeDAO;
 	
-	public PagamentoService(PagamentoDAO pagamentoDAO) {
-	   this.pagamentoDAO = pagamentoDAO;
+	public FilmeService(FilmeDAO filmeDAO) {
+	   this.filmeDAO = filmeDAO;
 	}
 	
 	
-	public Collection<Pagamento> retornaTodosOsPagamentos() {
-		return pagamentoDAO.retornaTodosOsPagamentos();
+	public List<Filme> retornaTodosOsFilmes() {
+		return filmeDAO.retornaTodosOsFilmes();
 		
 	}
 	
-	public void adicionaPagamentos(Pagamento pagamento) {
-		pagamentoDAO.adicionaPagamento(pagamento);
+	public void adicionaFilme(Filme filme) {
+		filmeDAO.adicionaFilme(filme);
 		
 	}
-
+	
 }
 ```
 
-Este serviço faz uma comunicação com o banco de dados através de uma classe DAO(no caso PagamentoDAO).
+Este serviço faz uma comunicação com o banco de dados através de uma classe DAO(no caso FilmeDAO).
 
 Então vamos criar o nosso teste:
 
 ```
-public class PagamentoTest {
+public class FilmeTest {
 	
-	private PagamentoService pagamentoService;
+	private FilmeService filmeService;
 
 	@Before
-	public void montaCenario() {
-		pagamentoService = new PagamentoService(new PagamentoDaoImpl());
-	}
-
-	@Test
-	public void deveRetornarTodosOsPagamentos() {
-	  pagamentoService.adicionaPagamentos(new Pagamento("Conta de Luz", 300,                                   Calendar.getInstance()));
-	  pagamentoService.adicionaPagamentos(new Pagamento("Conta de Água", 300, Calendar.getInstance()));
-	
-	  assertEquals(2,pagamentoService.retornaTodosOsPagamentos().size());
-	}
-	
-	@Test
-	public void deveAdicionarPagamento() {
-	   Pagamento pagamento = new Pagamento("Conta do Bar", 350, Calendar.getInstance());
-	   pagamentoService.adicionaPagamentos(pagamento);
-		
-	   assertEquals(3, pagamentoService.retornaTodosOsPagamentos().size());
-	}
-	
-}
-
-```
-
-Agora podemos rodar nosso teste e verificar se a nossa aplicação está funcionando perfeitamente
-
-![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_ok.PNG)
-
-
-Sucesso!:) Mas e se rodarmos novamente, o que será que acontece?
-
-![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_com_falha.PNG) 
-
-Ué mas o meu código estava funcionando, o que aconteceu? :( Os testes não passam mais porque estamos usando um objeto do mundo real, o PagamentoDAO que faz a comunicação com um banco de dados, seja no ambiente de desenvolvimento, homologação ou produção. Então toda vez que rodamos os testes os registros são inseridos no banco de dados.
-
-Ah entendi, então vamos apagar todos os dados sempre antes de rodar os testes, funcionaria, mas será que é a melhor solução, bom acho que não.
-
-
-Outra solução seria criarmos um objeto “fake” igual ao nosso PagamentoDAO, vamos criar um PagamentoDAOFake
-
-Então, agora temos duas classes DAO, a do mundo real e uma fake que faz comunicação com banco de dados de validação apenas para realizarmos os nossos testes.
-
-```
-public class PagamentoDaoImpl implements PagamentoDAO {
-
-	public List<Pagamento> retornaTodosOsPagamentos() {
-		List<Pagamento> pagamentos = BancoDeDado.lerDoBanco("pagamentos");
-		return pagamentos;
-	}
-
-	public void adicionaPagamento(Pagamento pagamento) {
-		List<Pagamento> pagamentos = BancoDeDado.lerDoBanco("pagamentos");
-		pagamentos.add(pagamento);
-		BancoDeDado.gravaNoBanco(pagamentos, "pagamentos");
-		
-	}
-}
-
-
-public class PagamentoDaoImplFake implements PagamentoDAO {
-
-	public List<Pagamento> retornaTodosOsPagamentos() {
-		List<Pagamento> pagamentos = BancoDeDado.lerDoBanco("pagamentos-fake");
-		return pagamentos;
-
-	}
-
-	public void adicionaPagamento(Pagamento pagamento) {
-		List<Pagamento> pagamentos = BancoDeDado.lerDoBanco("pagamentos-fake");
-		pagamentos.add(pagamento);
-		BancoDeDado.gravaNoBanco(pagamentos, "pagamentos-fake");
-		
-	}
-}
-
-```
-
-E no teste alteramos para a classe de serviço receber a nossa classe fake. Mas será que isso é o melhor dos mundos? Perceba toda vez que formos realizar uma mudança na classe do mundo real, precisaremos replicar para a nossa classe fake. E ainda teremos que ficar apagando os dados para realizar os testes. :(
-
-```
-public class PagamentoTest {
-	
-	private PagamentoService pagamentoService;
-
-	@Before
-	public void montaCenario() {
-		pagamen toService = new PagamentoService(newPagamentoDaoImplFake());
+	public void setup() {
+		filmeService = new FilmeService(new FilmeDaoImpl());
 	}
 
 	@Test
 	public void deverRetornarTodosOsPagamentos() {
-		pagamentoService.adicionaPagamentos(new Pagamento("Conta de Luz", 300, Calendar.getInstance()));
-		pagamentoService.adicionaPagamentos(new Pagamento("Conta de Água", 300, Calendar.getInstance()));
-		
-		
-		assertEquals(2, pagamentoService.retornaTodosOsPagamentos().size());
+		filmeService.adicionaFilme(new Filme("O Poderoso chefão",
+				"The Godfather (Brasil: O Poderoso Chefão /Portugal: O Padrinho) é um filme norte-americano de 1972", Calendar.getInstance()));
+		filmeService.adicionaFilme(new Filme("American Gangster",
+				"American Gangster  é um filme estadunidense de 2007 do gênero policial, dirigido por Ridley Scott,", Calendar.getInstance()));
+
+		assertEquals(2, filmeService.retornaTodosOsFilmes().size());
 	}
 	
 	@Test
 	public void deveAdicionarPagamento() {
-		Pagamento pagamento = new Pagamento("Conta do Bar", 350, Calendar.getInstance());
-		pagamentoService.adicionaPagamentos(pagamento);
+		Filme filme = new Filme("Os Intocáveis",
+				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
+				Calendar.getInstance());
+
+		filmeService.adicionaFilme(filme);
 		
-		assertEquals(3, pagamentoService.retornaTodosOsPagamentos().size());
+		assertEquals(3, filmeService.retornaTodosOsFilmes().size());
 	}
 	
 }
+```
 
+Agora podemos rodar nosso teste e verificar se a nossa aplicação está funcionando perfeitamente
+
+![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_ok.png)
+
+
+Sucesso!:) Mas e se rodarmos novamente, o que será que acontece?
+
+![alt text](https://github.com/adesozasilva/mockito/blob/master/testes_com_falha.png) 
+
+Ué!? O meu código tinha funcionado, o que aconteceu? :( Os testes não passam mais porque utilizamos um objeto do mundo real, o FilmeDAO que faz a comunicação com um banco de dados, seja no ambiente de desenvolvimento, homologação ou produção. Então toda a vez que rodamos os testes os dados são inseridos no banco.
+
+Ah! Entendi, então vamos apagar todos os dados sempre antes de rodar os testes, funcionaria, mas será que é a melhor solução, bom penso que não.
+
+
+Outra solução seria criarmos um objeto “mock” igual ao nosso PagamentoDAO, vamos criar um PagamentoDAOMockImpl
+
+Então, agora temos duas classes DAO, a do mundo real e um "mock" que faz comunicação com banco de dados de validação apenas para realizarmos os nossos testes.
+
+```
+public class FilmeDAOMockImpl implements FilmeDAO {
+
+	public List<Filme> retornaTodosOsFilmes() {
+		List<Filme> filmes = BancoDeDados.lerDoBanco("filmes-mock");
+		return filmes;
+	}
+
+	public void adicionaFilme(Filme filme) {
+		List<Filme> filmes = BancoDeDados.lerDoBanco("filmes-mock");
+		filmes.add(filme);
+		BancoDeDados.gravaNoBanco(filmes, "filmes-mock");		
+	}
+
+}
+```
+
+No teste alteramos para a classe de serviço receber a nossa implementação mock. Então, será que isso é uma boa abordagem? Perceba toda a vez que formos realizar uma mudança na classe do mundo real, precisaremos replicar para a nossa implementação. Ainda teremos que apagar os dados para realizar os testes. :(
+
+```
+public class FilmesComClasseDeMockTest {
+	
+	private FilmeService filmeService;
+
+	@Before
+	public void setup() {
+		filmeService = new FilmeService(new FilmeDAOMockImpl());
+		filmeService.adicionaFilme(new Filme("O Poderoso chefão",
+				"The Godfather (Brasil: O Poderoso Chefão /Portugal: O Padrinho) é um filme norte-americano de 1972", Calendar.getInstance()));
+		filmeService.adicionaFilme(new Filme("American Gangster",
+				"American Gangster  é um filme estadunidense de 2007 do gênero policial, dirigido por Ridley Scott,", Calendar.getInstance()));
+	}
+
+	@Test
+	public void deverRetornarTodosOsPagamentos() {
+		assertEquals(2, filmeService.retornaTodosOsFilmes().size());
+	}
+	
+	@Test
+	public void deveAdicionarPagamento() {
+		Filme filme = new Filme("Os Intocáveis",
+				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
+				Calendar.getInstance());
+
+		filmeService.adicionaFilme(filme);
+
+		assertEquals(3, filmeService.retornaTodosOsFilmes().size());
+	}
+
+	@After
+	public void clearContext() {
+		BancoDeDados.deleteBancoDeDados("filmes-mock");
+	}
+
+}
 ```
 
 Então como podemos resolver isso? Aí que surge o Mockito, um framework para simular os nossos objetos reais.
 
-Com o Mockito, podemos manter uma única classe de PagamentoDAO e simular os seus comportamentos, veja como podemos fazer isso no exemplo abaixo:
+Com o Mockito, podemos manter uma única classe de FilmeDAO e simular os seus comportamentos, veja como faremos isso no exemplo abaixo:
 
 ```
-@Test
-public void deverRetornarTodosOsPagamentos() {
-    PagamentoDAO pagamentoDAO = Mockito.mock(PagamentoDaoImpl.class);
-    PagamentoService pagamentoService = new PagamentoService(pagamentoDAO);
+public class FilmesComMockitoTest {
+	
+	private FilmeService filmeService;
+	private FilmeDAO filmeDAO;
+	private List<Filme> filmes;
 
-     
-    List<Pagamento> pagamentos = Arrays.asList(new Pagamento("Conta de Luz",   300, Calendar.getInstance()),
-                                               new Pagamento("Conta de Luz", 300, Calendar.getInstance()));
+	@Before
+	public void setup() {
+		filmeDAO = mock(FilmeDaoImpl.class);
+		filmeService = new FilmeService(filmeDAO);
+		filmes = Arrays.asList(
+				new Filme("O Poderoso chefão",
+						"The Godfather (Brasil: O Poderoso Chefão /Portugal: O Padrinho) é um filme norte-americano de 1972", Calendar.getInstance()),
+				new Filme("American Gangster",
+						"American Gangster  é um filme estadunidense de 2007 do gênero policial, dirigido por Ridley Scott,", Calendar.getInstance()));
+	}
 
-    Mockito.when(pagamentoDAO.retornaTodosOsPagamentos())
-    .thenReturn(pagamentos);
-    
-    assertEquals(2, pagamentoService.retornaTodosOsPagamentos().size());
+	@Test
+	public void deverRetornarTodosOsFilmes() {
+		when(filmeDAO.retornaTodosOsFilmes()).thenReturn(filmes);
+		assertEquals(2, filmeService.retornaTodosOsFilmes().size());
+	}
+	
+	@Test
+	public void deveAdicionarFilme() {
+		Filme filme = new Filme("Os Intocáveis",
+				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
+				Calendar.getInstance());
+		filmeService.adicionaFilme(filme);
+		
+		verify(filmeDAO).adicionaFilme(filme);
+		
+	}
+
 }
-
 ```
 
-Notem que estamos criando um pagamentoDAO a partir do método `mock` e com os métodos `when` e `thenReturn` estamos simulando o comportamento “retornaTodosOsPagamentos” e agora ele está retornando a lista que montamos.
+Notem que criamos um pagamentoDAO a partir do método `mock` e com os métodos `when` e `thenReturn` simulamos o comportamento “retornaTodosOsPagamentos” e agora ele retorna a lista que montamos.
 
 Bacana não é?
 
-E não para por aí, com o Mockito ainda conseguimos fazer outras verificações, como no caso abaixo:
+Ainda tem mais, com o Mockito ainda conseguimos fazer outras verificações, como no caso abaixo:
 
 ```
 @Test
-public void deveAdicionarPagamento() {
-   PagamentoDAO pagamentoDAO = Mockito.mock(PagamentoDaoImpl.class);
-   PagamentoService pagamentoService = new PagamentoService(pagamentoDAO);
-   
-   Pagamento pagamento = new Pagamento("Conta do Bar", 350, Calendar.getInstance());
-   
-   pagamentoService.adicionaPagamentos(pagamento);
+	public void deveAdicionarFilme() {
+		Filme filme = new Filme("Os Intocáveis",
+				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
+				Calendar.getInstance());
+		filmeService.adicionaFilme(filme);
 		
-   Mockito.verify(pagamentoDAO).adicionaPagamento(pagamento);
+		verify(filmeDAO).adicionaFilme(filme);
 		
-}
-
+	}
 ```
 
-Com o método `verify` conseguimos saber se realmente o pagamentoService chamou o método adiciona do PagamentoDAO e assim verificamos se realmente o nosso registro foi adicionado ao banco de dados, caso o método não fosse chamado o teste não passaria.
+Com o método `verify` conseguimos saber se realmente o filmeService chamou o método adiciona do filmeDAO e assim verificamos se o nosso valor foi adicionado ao banco de dados, caso ele não fosse chamado o teste não passaria.
 
-E o Mockito tem muitos outros recursos poderosos e interessantes para nos ajudar na criação dos cenários de testes.
+O Mockito tem muitos outros recursos poderosos e interessantes para nos ajudar na criação dos cenários de testes.
 
 Ficou curioso? Veja mais em https://site.mockito.org/

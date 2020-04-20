@@ -1,4 +1,4 @@
-package br.com.everis.infra.dao;
+package br.com.adesozasilva.infra.dao;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,18 +9,18 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.everis.dominio.Pagamento;
+import br.com.adesozasilva.domain.Filme;
 
-public class BancoDeDado {
+public class BancoDeDados {
     
-    public static void gravaNoBanco(List<Pagamento> pagamentos, String nomeArq) {
+    public static void gravaNoBanco(List<Filme> filmes, String nomeArq) {
       File arq = new File(nomeArq);
       try {
         arq.delete();
         arq.createNewFile();
     
         ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arq));
-        objOutput.writeObject(pagamentos);
+        objOutput.writeObject(filmes);
         objOutput.close();
     
       } catch(IOException erro) {
@@ -28,14 +28,13 @@ public class BancoDeDado {
       }
     }
     
-    @SuppressWarnings("unchecked")
-	public static List<Pagamento> lerDoBanco(String nomeArq) {
-      List<Pagamento> lista = new ArrayList<Pagamento>();
+	public static List<Filme> lerDoBanco(String nomeArq) {
+      List<Filme> lista = new ArrayList<Filme>();
       try {
         File arq = new File(nomeArq);
         if (arq.exists()) {
            ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arq));
-           lista = (ArrayList<Pagamento>)objInput.readObject();
+           lista = (ArrayList<Filme>)objInput.readObject();
            objInput.close();
         }
       } catch(IOException erro1) {
@@ -45,6 +44,12 @@ public class BancoDeDado {
       }
     
       return(lista);
+    }
+
+
+    public static void deleteBancoDeDados(String nomeArq) {
+        File arq = new File(nomeArq);
+        arq.delete();
     }
     
   }
