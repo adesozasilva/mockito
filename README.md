@@ -50,7 +50,7 @@ public class FilmeTest {
 	}
 	
 	@Test
-	public void deveAdicionarPagamento() {
+	public void deveAdicionaFilme() {
 		Filme filme = new Filme("Os Intocáveis",
 				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
 				Calendar.getInstance());
@@ -115,12 +115,12 @@ public class FilmesComClasseDeMockTest {
 	}
 
 	@Test
-	public void deverRetornarTodosOsPagamentos() {
+	public void deverRetornarTodosOsFilmes() {
 		assertEquals(2, filmeService.retornaTodosOsFilmes().size());
 	}
 	
 	@Test
-	public void deveAdicionarPagamento() {
+	public void deveAdicionarFilme() {
 		Filme filme = new Filme("Os Intocáveis",
 				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
 				Calendar.getInstance());

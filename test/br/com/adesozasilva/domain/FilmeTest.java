@@ -20,7 +20,7 @@ public class FilmeTest {
 	}
 
 	@Test
-	public void deverRetornaTodosOsFilmes() {
+	public void deverRetornarTodosOsFilmes() {
 		filmeService.adicionaFilme(new Filme("O Poderoso chefão",
 				"The Godfather (Brasil: O Poderoso Chefão /Portugal: O Padrinho) é um filme norte-americano de 1972", Calendar.getInstance()));
 		filmeService.adicionaFilme(new Filme("American Gangster",
@@ -30,7 +30,7 @@ public class FilmeTest {
 	}
 	
 	@Test
-	public void devAdicionaFilme() {
+	public void deveAdicionarFilme() {
 		Filme filme = new Filme("Os Intocáveis",
 				"Os Intocáveis é um filme de drama policial norte-americano de 1987, dirigido por Brian De Palma e escrito por David Mamet. ",
 				Calendar.getInstance());
