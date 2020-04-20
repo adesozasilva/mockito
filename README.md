@@ -40,7 +40,7 @@ public class FilmeTest {
 	}
 
 	@Test
-	public void deverRetornarTodosOsPagamentos() {
+	public void deverRetornarTodosOsFilmes() {
 		filmeService.adicionaFilme(new Filme("O Poderoso chefão",
 				"The Godfather (Brasil: O Poderoso Chefão /Portugal: O Padrinho) é um filme norte-americano de 1972", Calendar.getInstance()));
 		filmeService.adicionaFilme(new Filme("American Gangster",
