@@ -28,7 +28,7 @@ public class FilmesComMockitoTest {
 		filmeService = new FilmeService(filmeDAO);
 		filmes = Arrays.asList(
 				new Filme("O Poderoso chefão",
-						"The Godfather (Brasil: O Poderoso Chefão /Portugal: O Padrinho) é um filme norte-americano de 1972", Calendar.getInstance()),
+						"The Godfather (Brasil: O Poderoso Chefão é um filme norte-americano de 1972", Calendar.getInstance()),
 				new Filme("American Gangster",
 						"American Gangster  é um filme estadunidense de 2007 do gênero policial, dirigido por Ridley Scott,", Calendar.getInstance()));
 	}
