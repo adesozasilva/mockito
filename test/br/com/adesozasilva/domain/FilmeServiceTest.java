@@ -10,7 +10,7 @@ import org.junit.Test;
 import br.com.adesozasilva.service.FilmeService;
 
 
-public class FilmeTest {
+public class FilmeServiceTest {
 	
 	private FilmeService filmeService;
 
