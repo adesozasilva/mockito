@@ -55,7 +55,7 @@ public class FilmeServiceTest {
 	}
 	
 	@Test
-	public void deveAdicionaFilme() {
+	public void deveAdicionarFilme() {
 		Filme filme = new Filme("Os Intocáveis",
 				"Os Intocáveis é um filme de drama policial norte-americano de 1987", 
 				Calendar.getInstance());
